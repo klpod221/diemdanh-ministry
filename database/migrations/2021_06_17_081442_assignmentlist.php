@@ -15,11 +15,11 @@ class Assignmentlist extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE VIEW AssignmentList
+            CREATE VIEW assignmentlist
             AS
-                SELECT assignmentId,name,email,phoneNumber,classId,assignment.subjectId,subjectName FROM Assignment
-                INNER JOIN Teacher ON Assignment.TeacherId = Teacher.TeacherId
-                INNER JOIN Subject ON Assignment.SubjectId = Subject.SubjectId
+                SELECT assignmentId,name,email,phoneNumber,classId,assignment.subjectId,subjectName FROM assignment
+                INNER JOIN teacher ON assignment.teacherId = teacher.teacherId
+                INNER JOIN subject ON assignment.subjectId = subject.subjectId
         ');
     }
 
@@ -30,6 +30,6 @@ class Assignmentlist extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW IF EXISTS AssignmentList');
+        DB::unprepared('DROP VIEW IF EXISTS assignmentlist');
     }
 }

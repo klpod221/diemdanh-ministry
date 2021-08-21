@@ -15,12 +15,12 @@ class Diemdanhlist extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE VIEW DiemDanhList
+            CREATE VIEW diem_danh_list
             AS
-                SELECT diemDanhDetail.studentId,name,diemDanh.classId,diemDanh.subjectId,subjectName,diemDanh FROM DiemDanhDetail
-                INNER JOIN Student ON DiemDanhDetail.StudentId = Student.StudentId
-                INNER JOIN DiemDanh ON DiemDanhDetail.DiemDanhId = DiemDanh.DiemDanhId
-                INNER JOIN Subject ON DiemDanh.SubjectId = Subject.SubjectId
+                SELECT diem_danh_detail.studentId,name,diem_danh.classId,diem_danh.subjectId,subjectName,diem_danh FROM diem_danh_detail
+                INNER JOIN student ON diem_danh_detail.studentId = student.studentId
+                INNER JOIN diem_danh ON diem_danh_detail.diem_danhId = diem_danh.diem_danhId
+                INNER JOIN subject ON diem_danh.subjectId = subject.subjectId
         ');
     }
 
@@ -31,6 +31,6 @@ class Diemdanhlist extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW IF EXISTS DiemDanhList');
+        DB::unprepared('DROP VIEW IF EXISTS diem_danh_list');
     }
 }

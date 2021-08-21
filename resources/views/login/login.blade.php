@@ -33,15 +33,25 @@
     </div>
     @method('post')
 </form>
+@if (Session::has('error'))
+    <input type="hidden" id="error" value="{{ Session::get('error') }}"/>
+@endif
 @endsection
 @section('script')
 <script>
     $( document ).ready(function()
     {
-        var error = {{ isset($_GET['error']) ? $_GET['error'] : '0' }};
-        if(error != "0")
-        {
-            demo.showNotification('top','center','error1');
+        var error = document.getElementById('error').value;
+        console.log(error);
+        switch (error) {
+            case 1:
+                demo.showNotification('top','center','error1');
+                break;
+            case 4:
+                demo.showNotification('top','center','error4');
+                break;
+            default:
+                break;
         }
     });
 </script>

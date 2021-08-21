@@ -15,7 +15,7 @@ class Ministrylist extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE VIEW MinistryList
+            CREATE VIEW ministrylist
             AS
                 SELECT ministryId,name,gender,dateOfBirth,email,phoneNumber FROM ministry
                 WHERE Status = 0

@@ -13,14 +13,14 @@ class DiemDanhDetail extends Migration
      */
     public function up()
     {
-        Schema::create('diemDanhDetail', function (Blueprint $table) {
-            $table->unsignedBigInteger('diemDanhId');
+        Schema::create('diem_danh_detail', function (Blueprint $table) {
+            $table->unsignedBigInteger('diem_danhId');
             $table->string('studentId',15);
-            $table->float('diemDanh');
-            $table->primary(['diemDanhId','studentId']);
-            $table->foreign('diemDanhId')->references('diemDanhId')->on('diemDanh');
+            $table->float('diem_danh');
+            $table->primary(['diem_danhId','studentId']);
+            $table->foreign('diem_danhId')->references('diem_danhId')->on('diem_danh');
             $table->foreign('studentId')->references('studentId')->on('student');
-            $table->foreign('diemDanh')->references('diemDanh')->on('diemDanhStatus');
+            $table->foreign('diem_danh')->references('diem_danh')->on('diem_danh_status');
         });
     }
 

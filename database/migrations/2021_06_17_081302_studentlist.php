@@ -15,12 +15,12 @@ class Studentlist extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE VIEW StudentList
+            CREATE VIEW studentlist
             AS
-                SELECT studentId,name,gender,dateOfBirth,phoneNumber,email,className,majorName,courseId AS course,address FROM Student
-                INNER JOIN Class ON Student.ClassId = Class.ClassId
-                INNER JOIN Major ON Class.MajorId = Major.MajorId
-                WHERE Major.majorStatus = 0 AND Class.classStatus = 0 AND studentStatus = 0
+                SELECT studentId,name,gender,dateOfBirth,phoneNumber,email,className,majorName,courseId AS course,address FROM student
+                INNER JOIN class ON student.classId = class.classId
+                INNER JOIN major ON class.majorId = major.majorId
+                WHERE major.majorStatus = 0 AND class.classStatus = 0 AND studentStatus = 0
         ');
     }
 
@@ -31,6 +31,6 @@ class Studentlist extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW IF EXISTS StudentList');
+        DB::unprepared('DROP VIEW IF EXISTS studentlist');
     }
 }

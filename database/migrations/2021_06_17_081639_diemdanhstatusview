@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class Diemdanhstatusview extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::unprepared('
+            CREATE PROCEDURE diem_danh_status_view(IN diem_danhId INT,IN classId VARCHAR(15),IN subjectId VARCHAR(15))
+            BEGIN
+                SELECT date,diem_danh_detail.studentId,name,diem_danh.classId,diem_danh.subjectId,subjectName,diem_danh_status.status FROM diem_danh_detail
+                INNER JOIN diem_danh ON diem_danh_detail.diem_danhId = diem_danh.diem_danhId
+                INNER JOIN subject ON diem_danh.subjectId = subject.subjectId
+                INNER JOIN diem_danh_status ON diem_danh_detail.diem_danh = diem_danh_status.diem_danh
+                INNER JOIN student ON diem_danh_detail.studentId = student.studentId
+                WHERE diem_danh.diem_danhId = @diem_danhId AND diem_danh.classId = @classId AND diem_danh.subjectId = @subjectId;
+            END'
+        );
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::unprepared('DROP PROCEDURE IF EXISTS diem_danh_status_view');
+    }
+}

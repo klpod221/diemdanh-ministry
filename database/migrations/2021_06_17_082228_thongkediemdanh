@@ -15,9 +15,9 @@ class Thongkediemdanh extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE PROCEDURE thongKeDiemDanh(IN ClassId VARCHAR(15),IN SubjectId VARCHAR(15))
+            CREATE PROCEDURE thong_ke_diem_danh(IN ClassId VARCHAR(15),IN SubjectId VARCHAR(15))
             BEGIN
-                SELECT studentId,classId,name,subjectId,subjectName,SUM(DiemDanh) AS siemDanh FROM DiemDanhList
+                SELECT studentId,classId,name,subjectId,subjectName,SUM(diem_danh) AS diem_danh FROM diem_danhList
                 WHERE ClassId = @ClassId AND SubjectId = @SubjectId
                 GROUP BY StudentId,ClassId,SubjectId,Name,SubjectName;
             END'
@@ -31,6 +31,6 @@ class Thongkediemdanh extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP PROCUDURE IF EXISTS thongKeDiemDanh');
+        DB::unprepared('DROP PROCUDURE IF EXISTS thong_ke_diem_danh');
     }
 }

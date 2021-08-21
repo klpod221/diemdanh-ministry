@@ -15,10 +15,10 @@ class Classlist extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE VIEW ClassList
+            CREATE VIEW classlist
             AS
-                SELECT classId,className,majorName,courseId AS course FROM Class
-                INNER JOIN Major ON Class.MajorId = Major.MajorId
+                SELECT classId,className,majorName,courseId AS course FROM class
+                INNER JOIN major ON class.majorId = major.majorId
                 WHERE classStatus = 0 AND majorStatus = 0
                 ORDER BY courseId DESC
         ');

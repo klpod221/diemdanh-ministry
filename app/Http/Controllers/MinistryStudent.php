@@ -39,7 +39,7 @@ class MinistryStudent extends Controller
             }
         }
 
-        $listStudent = DB::table('studentList')->get();
+        $listStudent = DB::table('studentlist')->get();
         if ($searchClass == '')
         {
             if($searchCourse != '')
@@ -50,7 +50,7 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                                 ->where('course','=',"$searchCourse")
                                 ->where('majorName','=',"$searchMajor")
                                 ->where('gender','=',"$searchGender")
@@ -59,7 +59,7 @@ class MinistryStudent extends Controller
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->where('majorName','=',"$searchMajor")
                             ->where('gender','=',"$searchGender")
@@ -70,7 +70,7 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->where('majorName','=',"$searchMajor")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
@@ -78,7 +78,7 @@ class MinistryStudent extends Controller
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->where('majorName','=',"$searchMajor")
                             ->get();
@@ -91,7 +91,7 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->where('gender','=',"$searchGender")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
@@ -99,7 +99,7 @@ class MinistryStudent extends Controller
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->where('gender','=',"$searchGender")
                             ->get();
@@ -109,14 +109,14 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                             ->get();
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('course','=',"$searchCourse")
                             ->get();
                         }
@@ -131,7 +131,7 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('majorName','=',"$searchMajor")
                             ->where('gender','=',"$searchGender")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
@@ -139,7 +139,7 @@ class MinistryStudent extends Controller
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('majorName','=',"$searchMajor")
                             ->where('gender','=',"$searchGender")
                             ->get();
@@ -149,14 +149,14 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('majorName','=',"$searchMajor")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                             ->get();
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('majorName','=',"$searchMajor")
                             ->get();
                         }
@@ -168,14 +168,14 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('gender','=',"$searchGender")
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                             ->get();
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->where('gender','=',"$searchGender")
                             ->get();
                         }
@@ -184,13 +184,13 @@ class MinistryStudent extends Controller
                     {
                         if($search != '')
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                             ->get();
                         }
                         else
                         {
-                            $listStudent = DB::table('studentList')
+                            $listStudent = DB::table('studentlist')
                             ->get();
                         }
                     }
@@ -209,7 +209,7 @@ class MinistryStudent extends Controller
             {
                 if($search != '')
                 {
-                    $listStudent = DB::table('studentList')
+                    $listStudent = DB::table('studentlist')
                         ->where('className','=',"$searchClass")
                         ->where('gender','=',"$searchGender")
                         ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
@@ -226,7 +226,7 @@ class MinistryStudent extends Controller
                 }
                 else
                 {
-                    $listStudent = DB::table('studentList')
+                    $listStudent = DB::table('studentlist')
                         ->where('className','=',"$searchClass")
                         ->where('gender','=',"$searchGender")
                         ->get();
@@ -245,7 +245,7 @@ class MinistryStudent extends Controller
             {
                 if($search != '')
                 {
-                    $listStudent = DB::table('studentList')
+                    $listStudent = DB::table('studentlist')
                         ->where('className','=',"$searchClass")
                         ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                         ->get();
@@ -261,7 +261,7 @@ class MinistryStudent extends Controller
                 }
                 else
                 {
-                    $listStudent = DB::table('studentList')
+                    $listStudent = DB::table('studentlist')
                         ->where('className','=',"$searchClass")
                         ->get();
 
@@ -321,7 +321,7 @@ class MinistryStudent extends Controller
     {
         $studentId = $request->get('studentId');
         $listClass = DB::table('class')->where('classStatus','=',0)->get();
-        $student = DB::table('studentList')->where('studentId','=',"$studentId")->first();
+        $student = DB::table('studentlist')->where('studentId','=',"$studentId")->first();
         return view('ministry.student.edit',[
             'listClass' => $listClass,
             'student' => $student,

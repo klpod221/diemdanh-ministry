@@ -13,8 +13,8 @@ class DiemDanh extends Migration
      */
     public function up()
     {
-        Schema::create('diemDanh', function (Blueprint $table) {
-            $table->id('diemDanhId');
+        Schema::create('diem_danh', function (Blueprint $table) {
+            $table->id('diem_danhId');
             $table->date('date');
             $table->unsignedBigInteger('classId');
             $table->string('subjectId',15);

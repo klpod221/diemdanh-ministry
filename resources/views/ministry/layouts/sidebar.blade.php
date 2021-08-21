@@ -15,7 +15,7 @@
             <div class="info">
                 <a href="#" class="collapsed">
                     <span>
-                        Tania Andrew
+                        {{ Session::get('name') }}
                     </span>
                 </a>
                 <div class="clearfix"></div>

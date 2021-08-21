@@ -42,7 +42,7 @@
                             <a href="#">Hồ sơ của tôi</a>
                         </li>
                         <li>
-                            <a href="#">Đăng xuất</a>
+                            <a href="{{ route('logout') }}">Đăng xuất</a>
                         </li>
                     </ul>
                 </li>

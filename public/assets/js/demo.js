@@ -1170,7 +1170,7 @@ demo = {
             $.notify({
                 icon: "warning",
                 message: "Sai địa chỉ email hoặc mật khẩu, vui lòng kiểm tra lại!"
-    
+
             }, {
                 type: type[4],
                 timer: 4000,
@@ -1180,13 +1180,13 @@ demo = {
                 }
             });
         }
-        
+
         if (name == 'error2')
         {
             $.notify({
                 icon: "warning",
                 message: "Tên chuyên ngành đã tồn tại, vui lòng kiểm tra lại!"
-    
+
             }, {
                 type: type[4],
                 timer: 4000,
@@ -1202,7 +1202,23 @@ demo = {
             $.notify({
                 icon: "warning",
                 message: "Chuyên ngành đã tồn tại, vui lòng kiểm tra lại!"
-    
+
+            }, {
+                type: type[4],
+                timer: 4000,
+                placement: {
+                    from: from,
+                    align: align
+                }
+            });
+        }
+
+        if (name == 'error4')
+        {
+            $.notify({
+                icon: "warning",
+                message: "Vui lòng đăng nhập để tiếp tục!"
+
             }, {
                 type: type[4],
                 timer: 4000,

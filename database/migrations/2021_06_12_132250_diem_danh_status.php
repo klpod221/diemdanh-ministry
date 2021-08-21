@@ -13,8 +13,8 @@ class DiemDanhStatus extends Migration
      */
     public function up()
     {
-        Schema::create('diemDanhStatus', function (Blueprint $table) {
-            $table->float('diemDanh')->primary();
+        Schema::create('diem_danh_status', function (Blueprint $table) {
+            $table->float('diem_danh')->primary();
             $table->string('status');
         });
     }
@@ -26,6 +26,6 @@ class DiemDanhStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diemDanhStatus');
+        Schema::dropIfExists('diem_danh_status');
     }
 }
