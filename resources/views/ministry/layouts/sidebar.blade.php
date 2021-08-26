@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="assignment">
+                <a href="{{ route('assignmentList') }}" class="assignment">
                     <i class="material-icons">assignment</i>
                     <p> Phân công </p>
                 </a>
@@ -61,14 +61,14 @@
                                 <span class="sidebar-normal">Niên khóa và Chuyên ngành</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="" class="subject">
-                                <span class="sidebar-mini"><i class="material-icons">subject</i></span>
-                                <span class="sidebar-normal">Môn học</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
+            </li>
+            <li>
+                <a href="{{ route('subjectList') }}" class="subject">
+                    <span class="sidebar-mini"><i class="material-icons">subject</i></span>
+                    <span class="sidebar-normal">Môn học</span>
+                </a>
             </li>
             <li>
                 <a data-toggle="collapse" href="#staff">
@@ -86,7 +86,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" class="teacher">
+                            <a href="{{ route('teacherList') }}" class="teacher">
                                 <span class="sidebar-mini"><i class="material-icons">attribution</i></span>
                                 <span class="sidebar-normal">Giảng viên</span>
                             </a>

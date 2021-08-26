@@ -45,12 +45,12 @@
                                         <input name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}" type="text" class="form-control" placeholder="Tìm kiếm mã lớp hoặc tên lớp">
                                         <span class="material-input"></span>
                                     </div>
-    
+
                                     <button type="submit" class="btn btn-white btn-round btn-just-icon">
                                         <i class="material-icons">search</i>
                                         <div class="ripple-container"></div>
                                     </button>
-    
+
                                     <a href="{{ route('classList') }}" class="btn btn-white btn-round btn-just-icon">
                                         <i class="material-icons">clear</i>
                                         <div class="ripple-container"></div>
@@ -138,7 +138,7 @@
         var table = $('#datatables').DataTable();
 
         $('.card .material-datatables label').addClass('form-group');
-    
+
         $('a.navbar-brand').text('Danh sách lớp học');
     });
 </script>

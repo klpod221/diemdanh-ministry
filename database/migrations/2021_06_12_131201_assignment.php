@@ -18,6 +18,7 @@ class Assignment extends Migration
             $table->unsignedBigInteger('classId');
             $table->string('subjectId',15);
             $table->unsignedBigInteger('teacherId');
+            $table->boolean('status');
             $table->foreign('classId')->references('classId')->on('class');
             $table->foreign('subjectId')->references('subjectId')->on('subject');
             $table->foreign('teacherId')->references('teacherId')->on('teacher');

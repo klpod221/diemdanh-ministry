@@ -17,9 +17,10 @@ class Assignmentlist extends Migration
         DB::unprepared('
             CREATE VIEW assignmentlist
             AS
-                SELECT assignmentId,name,email,phoneNumber,classId,assignment.subjectId,subjectName FROM assignment
+                SELECT assignmentId,name,email,phoneNumber,className,assignment.subjectId,subjectName,assignment.status FROM assignment
                 INNER JOIN teacher ON assignment.teacherId = teacher.teacherId
                 INNER JOIN subject ON assignment.subjectId = subject.subjectId
+                INNER JOIN class ON assignment.classId = class.classId
         ');
     }
 

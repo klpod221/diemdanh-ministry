@@ -38,9 +38,9 @@
                         <p class="hidden-lg hidden-md">Profile</p>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
+                        {{-- <li>
                             <a href="#">Hồ sơ của tôi</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('logout') }}">Đăng xuất</a>
                         </li>

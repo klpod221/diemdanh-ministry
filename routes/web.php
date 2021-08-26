@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Staff;
 use App\Http\Middleware\CheckLogin;
@@ -8,6 +9,7 @@ use App\Http\Controllers\MinistryClass;
 use App\Http\Controllers\MinistryStudent;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MinistryCourseMajor;
+use App\Http\Controllers\SubjectController;
 use App\Http\Middleware\CheckLogout;
 use Illuminate\Routing\Route as RoutingRoute;
 
@@ -24,6 +26,10 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('ministry/class-edit/{classId}',[MinistryClass::class, 'edit']);
     Route::post('ministry/class-edit/{classId}/store',[MinistryClass::class, 'editStore']);
     Route::get('ministry/class/delete/{classId}',[MinistryClass::class, 'delete']);
+    //Ministry Subject
+    Route::get('ministry/subject',[SubjectController::class, 'subjectList'])->name('subjectList');
+    Route::post('ministry/subject/insert',[SubjectController::class, 'insert'])->name('subjectInsert');
+    Route::post('ministry/subject/edit',[SubjectController::class, 'edit'])->name('subjectEdit');
     //Ministry Course Major
     Route::get('ministry/course-major',[MinistryCourseMajor::class, 'index'])->name('courseMajorList');
     Route::get('ministry/course-major/create-course',[MinistryCourseMajor::class, 'createCourse'])->name('createCourse');
@@ -41,6 +47,11 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('ministry/student/delete',[MinistryStudent::class, 'delete'])->name('deleteStudent');
     //Ministry Staff
     Route::get('ministry/list-ministry',[Staff::class, 'ministryList'])->name('ministryList');
+    Route::get('ministry/list-teacher',[Staff::class, 'teacherList'])->name('teacherList');
+    //Ministry Assignment
+    Route::get('ministry/assignment',[AssignmentController::class, 'index'])->name('assignmentList');
+    Route::post('ministry/assignment/create',[AssignmentController::class, 'create'])->name('createAssignment');
+    Route::post('ministry/assignment/edit',[AssignmentController::class, 'edit'])->name('assignmentEdit');
 });
 
 Route::middleware([CheckLogout::class])->group(function () {

@@ -14,4 +14,12 @@ class Staff extends Controller
             'listMinistry' => $listMinistry
         ]);
     }
+
+    public function teacherList(Request $request)
+    {
+        $listTeacher = DB::table('teacherlist')->get();
+        return view('ministry.staff.teacher-list',[
+            'listTeacher' => $listTeacher
+        ]);
+    }
 }
