@@ -11,5 +11,6 @@ class StudentModel extends Model
 
     protected $table = 'student';
     protected $primaryKey = 'studentId';
+    protected $fillable = ['studentId', 'name', 'gender', 'dateOfBirth', 'phoneNumber', 'email', 'address', 'classId', 'studentStatus'];
     public $timestamps = false;
 }

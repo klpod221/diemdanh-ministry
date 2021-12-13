@@ -11,5 +11,6 @@ class MajorModel extends Model
 
     protected $table = 'major';
     protected $primaryKey = 'majorId';
+    protected $fillable = ['majorId', 'majorName', 'majorStatus'];
     public $timestamps = false;
 }

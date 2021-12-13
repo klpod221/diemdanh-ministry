@@ -25,6 +25,22 @@
         </div>
     </div>
 
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">add</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Thêm chuyên ngành bằng file</h4>
+                <form action="{{ route('majorImport') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input id="major-file" type="file" name="major_file" accept=".xlsx, .xls, .csv, .ods" required>
+                    <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="errorCode4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-small ">
             <div class="modal-content">
@@ -51,12 +67,12 @@
 @endsection
 
 @section('script')
-<script type="text/javascript">    
+<script type="text/javascript">
     function upperFirstCase()
     {
         var input = document.getElementById('majorName').value;
         var value = input[0].toUpperCase();
-        for (i = 1; i < input.length; i++) 
+        for (i = 1; i < input.length; i++)
         {
             value += input[i];
         }

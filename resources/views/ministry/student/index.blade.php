@@ -10,7 +10,7 @@
             <div class="card-content">
                 <h4 class="card-title">Danh sách sinh viên</h4>
                 <a href="{{ route('createStudent') }}" type="button" class="btn btn-round btn-rose">Thêm sinh viên</a>
-
+                    <a href="{{ route('studentExport') }}" type="button" class="btn btn-round btn-blue">Xuất ra file</a>
                 <div class="toolbar">
                     <div class="row">
                         <form action="{{ route('studentList') }}" class="navbar-form" role="search" method="get" id="searchForm">

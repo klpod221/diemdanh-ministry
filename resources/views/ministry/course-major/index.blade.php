@@ -74,6 +74,9 @@
                         <div class="col-md-4">
                             <a href="{{ route('createMajor') }}" type="button" class="btn btn-rose">Thêm chuyên ngành</a>
                         </div>
+                        <div class="col-md-4">
+                            <a href="{{ route('majorExport') }}" type="button" class="btn btn-blue">Xuất ra file</a>
+                        </div>
                     </div>
                 </div>
                 <div class="material-datatables">
@@ -127,7 +130,7 @@
 </div>
 @endsection
 
-@section('script') 
+@section('script')
 <script type="text/javascript">
     $(document).ready(function() {
         $('#datatablesCourse').DataTable({
@@ -161,7 +164,7 @@
         var table = $('#datatables').DataTable();
 
         $('.card .material-datatables label').addClass('form-group');
-    
+
         $('a.navbar-brand').text('Niên khóa và Chuyên ngành');
     });
 </script>

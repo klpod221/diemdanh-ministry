@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
+use App\Exports\ClassExport;
+use App\Imports\ClassImport;
+use App\Imports\MajorImport;
 use App\Models\StudentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MinistryClass extends Controller
 {
@@ -15,72 +19,51 @@ class MinistryClass extends Controller
         $searchCourse = $request->get('searchCourse');
         $searchMajor = $request->get('searchMajor');
 
-        $listCourse = DB::table('course')->orderBy('courseId','desc')->get();
-        $listMajors = DB::table('major')->where('majorStatus','=',0)->get();
+        $listCourse = DB::table('course')->orderBy('courseId', 'desc')->get();
+        $listMajors = DB::table('major')->where('majorStatus', '=', 0)->get();
 
-        if($search == '')
-        {
-            if($searchCourse == '')
-            {
-                if($searchMajor == '')
-                { 
+        if ($search == '') {
+            if ($searchCourse == '') {
+                if ($searchMajor == '') {
                     $listClass = DB::select("SELECT * FROM classlist");
-                }
-                else
-                {
+                } else {
                     $listClass = DB::select("SELECT * FROM classlist WHERE majorName = '$searchMajor'");
                 }
-            }
-            else
-            {
-                if($searchMajor == '')
-                { 
+            } else {
+                if ($searchMajor == '') {
                     $listClass = DB::select("SELECT * FROM classlist WHERE course = $searchCourse");
-                }
-                else
-                {
+                } else {
                     $listClass = DB::select("SELECT * FROM classlist WHERE (course = $searchCourse) AND (majorName = '$searchMajor')");
                 }
             }
-        }
-        else
-        {
-            if($searchCourse == '')
-            {
-                if($searchMajor == '')
-                { 
+        } else {
+            if ($searchCourse == '') {
+                if ($searchMajor == '') {
                     $listClass = DB::select("SELECT * FROM classlist WHERE ((classId like '%$search%') OR (className like '%$search%'))");
-                }
-                else
-                {
+                } else {
                     $listClass = DB::select("SELECT * FROM classlist WHERE ((classId like '%$search%') OR (className like '%$search%')) AND majorName = '$searchMajor'");
                 }
-            }
-            else
-            {
-                if($searchMajor == '')
-                { 
+            } else {
+                if ($searchMajor == '') {
                     $listClass = DB::select("SELECT * FROM classlist WHERE ((classId like '%$search%') OR (className like '%$search%')) AND course = $searchCourse");
-                }
-                else
-                {
+                } else {
                     $listClass = DB::select("SELECT * FROM classlist WHERE ((classId like '%$search%') OR (className like '%$search%')) AND (course = $searchCourse) AND (majorName = '$searchMajor')");
                 }
             }
         }
 
-        return view('ministry.class.index',[
+        return view('ministry.class.index', [
             'listClass' => $listClass,
             'listCourse' => $listCourse,
             'listMajor' => $listMajors
         ]);
     }
-    
+
     public function create()
     {
-        $listCourse = DB::table('course')->orderBy('courseId','desc')->get();
-        $listMajors = DB::table('major')->where('majorStatus','=',0)->get();
-        return view('ministry.class.create',[
+        $listCourse = DB::table('course')->orderBy('courseId', 'desc')->get();
+        $listMajors = DB::table('major')->where('majorStatus', '=', 0)->get();
+        return view('ministry.class.create', [
             'listCourse' => $listCourse,
             'listMajor' => $listMajors
         ]);
@@ -90,31 +73,22 @@ class MinistryClass extends Controller
     {
         $courseId = $request->get('courseId');
         $majorId = $request->get('majorId');
-        
-        if ($courseId < 10)
-        {
+
+        if ($courseId < 10) {
             $course = 'K0' . $courseId;
-        }
-        else
-        {
+        } else {
             $course = 'K' . $courseId;
         }
 
-        $dbNum = DB::table('class')->where('courseId','=',"$courseId")->Where('majorId','=',"$majorId")->get();
+        $dbNum = DB::table('class')->where('courseId', '=', "$courseId")->Where('majorId', '=', "$majorId")->get();
         $num = '';
-        if(count($dbNum) < 10)
-        {
-            if(count($dbNum) == 0)
-            {
+        if (count($dbNum) < 10) {
+            if (count($dbNum) == 0) {
                 $num = '01';
+            } else {
+                $num = '0' . (count($dbNum) + 1);
             }
-            else
-            {
-                $num = '0' . (count($dbNum)+1);
-            }
-        }
-        else
-        {
+        } else {
             $num = count($dbNum);
         }
 
@@ -132,15 +106,15 @@ class MinistryClass extends Controller
 
     public function edit($classId)
     {
-        $listClass = DB::table('class')->Where('classId','=',"$classId")->get();
-        $listCourse = DB::table('course')->orderBy('courseId','desc')->get();
-        $listMajors = DB::table('major')->where('majorStatus','=',0)->get();
+        $listClass = DB::table('class')->Where('classId', '=', "$classId")->get();
+        $listCourse = DB::table('course')->orderBy('courseId', 'desc')->get();
+        $listMajors = DB::table('major')->where('majorStatus', '=', 0)->get();
         foreach ($listClass as $item) {
             $majorId = $item->majorId;
             $courseId = $item->courseId;
             $className = $item->className;
         }
-        return view('ministry.class.edit',[
+        return view('ministry.class.edit', [
             'listCourse' => $listCourse,
             'listMajor' => $listMajors,
             'classId' => $classId,
@@ -154,61 +128,63 @@ class MinistryClass extends Controller
     {
         $courseId = $request->get('courseId');
         $majorId = $request->get('majorId');
-        
-        if ($courseId < 10)
-        {
+
+        if ($courseId < 10) {
             $course = 'K0' . $courseId;
-        }
-        else
-        {
+        } else {
             $course = 'K' . $courseId;
         }
 
-        $dbNum = DB::table('class')->where('courseId','=',"$courseId")->Where('majorId','=',"$majorId")->get();
+        $dbNum = DB::table('class')->where('courseId', '=', "$courseId")->Where('majorId', '=', "$majorId")->get();
         $num = '';
-        if(count($dbNum) < 10)
-        {
-            if(count($dbNum) == 0)
-            {
+        if (count($dbNum) < 10) {
+            if (count($dbNum) == 0) {
                 $num = '01';
+            } else {
+                $num = '0' . (count($dbNum) + 1);
             }
-            else
-            {
-                $num = '0' . (count($dbNum)+1);
-            }
-        }
-        else
-        {
+        } else {
             $num = count($dbNum);
         }
 
         $className = $majorId . $num . $course;
 
-        $class = ClassModel::where('classId','=',"$classId")->first();
+        $class = ClassModel::where('classId', '=', "$classId")->first();
         $class->className = $className;
         $class->majorId = $request->get('majorId');
         $class->courseId = $request->get('courseId');
         $class->save();
 
         return redirect('ministry/class');
-    }   
+    }
 
     public function delete($classId)
     {
-        $class = ClassModel::where('classId','=',"$classId")->first();
+        $class = ClassModel::where('classId', '=', "$classId")->first();
         $class->classStatus = 1;
         $class->save();
 
         $listStudent = DB::table('student')
-        ->join('class','student.classId','=','class.classId')
-        ->where('student.classId','=',"$classId")
-        ->get();
-        
+            ->join('class', 'student.classId', '=', 'class.classId')
+            ->where('student.classId', '=', "$classId")
+            ->get();
+
         foreach ($listStudent as $item) {
-            $student = StudentModel::where('classId','=',"$item->classId")->where('studentStatus','=',0)->first();
+            $student = StudentModel::where('classId', '=', "$item->classId")->where('studentStatus', '=', 0)->first();
             $student->studentStatus = 1;
             $student->save();
         }
         return redirect('ministry/class');
+    }
+
+    public function classImport()
+    {
+        $import = Excel::import(new ClassImport, request()->file('class_file'));
+        return redirect('ministry/class');
+    }
+
+    public function classExport()
+    {
+        return Excel::download(new ClassExport, 'ClassList.xlsx');
     }
 }

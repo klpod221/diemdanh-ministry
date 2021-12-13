@@ -26,10 +26,25 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">add</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Thêm lớp học bằng file</h4>
+                    <form action="{{ route('classImport') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input id="class-file" type="file" name="class_file" accept=".xlsx, .xls, .csv, .ods" required>
+                        <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                    </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
-<script type="text/javascript">    
+<script type="text/javascript">
     $(document).ready(function() {
         $('a.navbar-brand').text('Thêm lớp học');
     });

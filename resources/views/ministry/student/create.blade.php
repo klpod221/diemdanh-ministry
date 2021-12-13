@@ -1,7 +1,7 @@
 @extends('ministry.layouts.layout')
 
 @section('main')
-    <div class="col-md-12">
+    <div class="col-md-9">
         <div class="card">
             <div class="card-header card-header-icon" data-background-color="rose">
                 <i class="material-icons">add</i>
@@ -86,6 +86,21 @@
                     </div>
                     <button id="btn-submit" class="btn btn-rose">submit</button>
                     <a href="{{ route('classList') }}"class="btn btn-rose">back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">add</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Thêm sinh viên bằng file</h4>
+                <form action="{{ route('studentImport') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    @csrf
+                    <input id="student-file" type="file" name="student_file" accept=".xlsx, .xls, .csv, .ods" required>
+                    <button type="submit" class="btn btn-fill btn-rose">Submit</button>
                 </form>
             </div>
         </div>

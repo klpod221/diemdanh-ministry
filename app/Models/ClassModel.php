@@ -11,5 +11,6 @@ class ClassModel extends Model
 
     protected $table = 'class';
     protected $primaryKey = 'classId';
+    protected $fillable = ['className', 'majorId', 'courseId', 'classStatus'];
     public $timestamps = false;
 }

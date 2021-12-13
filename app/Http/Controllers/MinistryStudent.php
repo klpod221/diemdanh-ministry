@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\StudentModel;
 use Illuminate\Http\Request;
+use App\Exports\StudentExport;
+use App\Imports\StudentImport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MinistryStudent extends Controller
 {
     public function index(Request $request)
     {
-        $listCourse = DB::table('course')->orderBy('courseId','desc')->get();
-        $listMajor = DB::table('major')->where('majorStatus','=',0)->get();
-        $listClass = DB::table('class')->where('classStatus','=',0)->get();
+        $listCourse = DB::table('course')->orderBy('courseId', 'desc')->get();
+        $listMajor = DB::table('major')->where('majorStatus', '=', 0)->get();
+        $listClass = DB::table('class')->where('classStatus', '=', 0)->get();
 
         $search = $request->get('search');
         $searchCourse = $request->get('searchCourse');
@@ -20,202 +23,145 @@ class MinistryStudent extends Controller
         $searchClass = $request->get('searchClass');
         $searchGender = $request->get('searchGender');
 
-        if ($searchClass == '' && ($searchCourse != '' || $searchMajor != ''))
-        {
-            if ($searchCourse != '')
-            {
-                if($searchMajor != '')
-                {
-                    $listClass = DB::table('classlist')->where('majorName','=',"$searchMajor")->where('course','=',"$searchCourse")->get();
+        if ($searchClass == '' && ($searchCourse != '' || $searchMajor != '')) {
+            if ($searchCourse != '') {
+                if ($searchMajor != '') {
+                    $listClass = DB::table('classlist')->where('majorName', '=', "$searchMajor")->where('course', '=', "$searchCourse")->get();
+                } else {
+                    $listClass = DB::table('classlist')->where('course', '=', "$searchCourse")->get();
                 }
-                else
-                {
-                    $listClass = DB::table('classlist')->where('course','=',"$searchCourse")->get();
-                }
-            }
-            else
-            {
-                $listClass = DB::table('classlist')->where('majorName','=',"$searchMajor")->get();
+            } else {
+                $listClass = DB::table('classlist')->where('majorName', '=', "$searchMajor")->get();
             }
         }
 
         $listStudent = DB::table('studentlist')->get();
-        if ($searchClass == '')
-        {
-            if($searchCourse != '')
-            {
-                if($searchMajor != '')
-                {
-                    if($searchGender != '')
-                    {
-                        if($search != '')
-                        {
+        if ($searchClass == '') {
+            if ($searchCourse != '') {
+                if ($searchMajor != '') {
+                    if ($searchGender != '') {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                                ->where('course','=',"$searchCourse")
-                                ->where('majorName','=',"$searchMajor")
-                                ->where('gender','=',"$searchGender")
+                                ->where('course', '=', "$searchCourse")
+                                ->where('majorName', '=', "$searchMajor")
+                                ->where('gender', '=', "$searchGender")
                                 ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                                 ->get();
-                        }
-                        else
-                        {
+                        } else {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->where('majorName','=',"$searchMajor")
-                            ->where('gender','=',"$searchGender")
-                            ->get();
+                                ->where('course', '=', "$searchCourse")
+                                ->where('majorName', '=', "$searchMajor")
+                                ->where('gender', '=', "$searchGender")
+                                ->get();
                         }
-                    }
-                    else
-                    {
-                        if($search != '')
-                        {
+                    } else {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->where('majorName','=',"$searchMajor")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
-                        }
-                        else
-                        {
+                                ->where('course', '=', "$searchCourse")
+                                ->where('majorName', '=', "$searchMajor")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->where('majorName','=',"$searchMajor")
-                            ->get();
+                                ->where('course', '=', "$searchCourse")
+                                ->where('majorName', '=', "$searchMajor")
+                                ->get();
                         }
                     }
-                }
-                else
-                {
-                    if($searchGender != '')
-                    {
-                        if($search != '')
-                        {
+                } else {
+                    if ($searchGender != '') {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->where('gender','=',"$searchGender")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
+                                ->where('course', '=', "$searchCourse")
+                                ->where('gender', '=', "$searchGender")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
+                            $listStudent = DB::table('studentlist')
+                                ->where('course', '=', "$searchCourse")
+                                ->where('gender', '=', "$searchGender")
+                                ->get();
                         }
-                        else
-                        {
+                    } else {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->where('gender','=',"$searchGender")
-                            ->get();
-                        }
-                    }
-                    else
-                    {
-                        if($search != '')
-                        {
+                                ->where('course', '=', "$searchCourse")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
                             $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
-                        }
-                        else
-                        {
-                            $listStudent = DB::table('studentlist')
-                            ->where('course','=',"$searchCourse")
-                            ->get();
+                                ->where('course', '=', "$searchCourse")
+                                ->get();
                         }
                     }
                 }
-            }
-            else
-            {
-                if($searchMajor != '')
-                {
-                    if($searchGender != '')
-                    {
-                        if($search != '')
-                        {
+            } else {
+                if ($searchMajor != '') {
+                    if ($searchGender != '') {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('majorName','=',"$searchMajor")
-                            ->where('gender','=',"$searchGender")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
+                                ->where('majorName', '=', "$searchMajor")
+                                ->where('gender', '=', "$searchGender")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
+                            $listStudent = DB::table('studentlist')
+                                ->where('majorName', '=', "$searchMajor")
+                                ->where('gender', '=', "$searchGender")
+                                ->get();
                         }
-                        else
-                        {
+                    } else {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('majorName','=',"$searchMajor")
-                            ->where('gender','=',"$searchGender")
-                            ->get();
-                        }
-                    }
-                    else
-                    {
-                        if($search != '')
-                        {
+                                ->where('majorName', '=', "$searchMajor")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
                             $listStudent = DB::table('studentlist')
-                            ->where('majorName','=',"$searchMajor")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
-                        }
-                        else
-                        {
-                            $listStudent = DB::table('studentlist')
-                            ->where('majorName','=',"$searchMajor")
-                            ->get();
+                                ->where('majorName', '=', "$searchMajor")
+                                ->get();
                         }
                     }
-                }
-                else
-                {
-                    if($searchGender != '')
-                    {
-                        if($search != '')
-                        {
+                } else {
+                    if ($searchGender != '') {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('gender','=',"$searchGender")
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
+                                ->where('gender', '=', "$searchGender")
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
+                            $listStudent = DB::table('studentlist')
+                                ->where('gender', '=', "$searchGender")
+                                ->get();
                         }
-                        else
-                        {
+                    } else {
+                        if ($search != '') {
                             $listStudent = DB::table('studentlist')
-                            ->where('gender','=',"$searchGender")
-                            ->get();
-                        }
-                    }
-                    else
-                    {
-                        if($search != '')
-                        {
+                                ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
+                                ->get();
+                        } else {
                             $listStudent = DB::table('studentlist')
-                            ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
-                            ->get();
-                        }
-                        else
-                        {
-                            $listStudent = DB::table('studentlist')
-                            ->get();
+                                ->get();
                         }
                     }
                 }
             }
-        }
-        else
-        {
-            $findClass = DB::table('classlist')->where('className','=',"$searchClass")->get();
+        } else {
+            $findClass = DB::table('classlist')->where('className', '=', "$searchClass")->get();
             foreach ($findClass as $item) {
                 $course = $item->course;
                 $major = $item->majorName;
             }
 
-            if($searchGender != '')
-            {
-                if($search != '')
-                {
+            if ($searchGender != '') {
+                if ($search != '') {
                     $listStudent = DB::table('studentlist')
-                        ->where('className','=',"$searchClass")
-                        ->where('gender','=',"$searchGender")
+                        ->where('className', '=', "$searchClass")
+                        ->where('gender', '=', "$searchGender")
                         ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                         ->get();
 
-                    return view('ministry.student.index',[
+                    return view('ministry.student.index', [
                         'listStudent' => $listStudent,
                         'listCourse' => $listCourse,
                         'listMajor' => $listMajor,
@@ -223,15 +169,13 @@ class MinistryStudent extends Controller
                         'course' => $course,
                         'major' => $major
                     ]);
-                }
-                else
-                {
+                } else {
                     $listStudent = DB::table('studentlist')
-                        ->where('className','=',"$searchClass")
-                        ->where('gender','=',"$searchGender")
+                        ->where('className', '=', "$searchClass")
+                        ->where('gender', '=', "$searchGender")
                         ->get();
 
-                    return view('ministry.student.index',[
+                    return view('ministry.student.index', [
                         'listStudent' => $listStudent,
                         'listCourse' => $listCourse,
                         'listMajor' => $listMajor,
@@ -240,17 +184,14 @@ class MinistryStudent extends Controller
                         'major' => $major
                     ]);
                 }
-            }
-            else
-            {
-                if($search != '')
-                {
+            } else {
+                if ($search != '') {
                     $listStudent = DB::table('studentlist')
-                        ->where('className','=',"$searchClass")
+                        ->where('className', '=', "$searchClass")
                         ->whereRaw("(studentId like '%$search%' OR name like '%$search%')")
                         ->get();
 
-                    return view('ministry.student.index',[
+                    return view('ministry.student.index', [
                         'listStudent' => $listStudent,
                         'listCourse' => $listCourse,
                         'listMajor' => $listMajor,
@@ -258,14 +199,12 @@ class MinistryStudent extends Controller
                         'course' => $course,
                         'major' => $major
                     ]);
-                }
-                else
-                {
+                } else {
                     $listStudent = DB::table('studentlist')
-                        ->where('className','=',"$searchClass")
+                        ->where('className', '=', "$searchClass")
                         ->get();
 
-                    return view('ministry.student.index',[
+                    return view('ministry.student.index', [
                         'listStudent' => $listStudent,
                         'listCourse' => $listCourse,
                         'listMajor' => $listMajor,
@@ -277,7 +216,7 @@ class MinistryStudent extends Controller
             }
         }
 
-        return view('ministry.student.index',[
+        return view('ministry.student.index', [
             'listStudent' => $listStudent,
             'listCourse' => $listCourse,
             'listMajor' => $listMajor,
@@ -287,10 +226,10 @@ class MinistryStudent extends Controller
 
     public function create()
     {
-        $listCourse = DB::table('course')->orderBy('courseId','desc')->get();
-        $listMajor = DB::table('major')->where('majorStatus','=',0)->get();
-        $listClass = DB::table('class')->where('classStatus','=',0)->get();
-        return view('ministry.student.create',[
+        $listCourse = DB::table('course')->orderBy('courseId', 'desc')->get();
+        $listMajor = DB::table('major')->where('majorStatus', '=', 0)->get();
+        $listClass = DB::table('class')->where('classStatus', '=', 0)->get();
+        return view('ministry.student.create', [
             'listCourse' => $listCourse,
             'listMajor' => $listMajor,
             'listClass' => $listClass
@@ -320,9 +259,9 @@ class MinistryStudent extends Controller
     public function edit(Request $request)
     {
         $studentId = $request->get('studentId');
-        $listClass = DB::table('class')->where('classStatus','=',0)->get();
-        $student = DB::table('studentlist')->where('studentId','=',"$studentId")->first();
-        return view('ministry.student.edit',[
+        $listClass = DB::table('class')->where('classStatus', '=', 0)->get();
+        $student = DB::table('studentlist')->where('studentId', '=', "$studentId")->first();
+        return view('ministry.student.edit', [
             'listClass' => $listClass,
             'student' => $student,
             'studentId' => $studentId
@@ -333,7 +272,7 @@ class MinistryStudent extends Controller
     {
         $studentId = $request->get('studentId');
 
-        $student = StudentModel::where('studentId','=',"$studentId")->first();
+        $student = StudentModel::where('studentId', '=', "$studentId")->first();
         $student->name = $request->get('name');
         $student->gender = $request->get('gender');
         $student->dateOfBirth = $request->get('dateOfBirth');
@@ -350,9 +289,20 @@ class MinistryStudent extends Controller
     public function delete(Request $request)
     {
         $studentId = $request->get('studentId');
-        $student = StudentModel::where('studentId','=',"$studentId")->first();
+        $student = StudentModel::where('studentId', '=', "$studentId")->first();
         $student->studentStatus = 1;
         $student->save();
+        return redirect('ministry/student');
+    }
+
+    public function studentExport()
+    {
+        return Excel::download(new StudentExport, 'StudentList.xlsx');
+    }
+
+    public function studentImport()
+    {
+        $import = Excel::import(new StudentImport, request()->file('student_file'));
         return redirect('ministry/student');
     }
 }

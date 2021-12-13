@@ -696,14 +696,15 @@ demo = {
                 }
             })
 
-        } else if (type == 'custom-html') {
+        } else if (type == 'major-import') {
             swal({
-                title: 'HTML example',
+                title: 'Major Import',
                 buttonsStyling: false,
-                confirmButtonClass: "btn btn-success",
-                html: 'You can use <b>bold text</b>, ' +
-                    '<a href="http://github.com">links</a> ' +
-                    'and other HTML tags'
+                showConfirmButton: false,
+                html: '<form action="{{ route(' + "'majorImport'" + ')}}" method="POST" enctype="multipart/form-data">' +
+                    '<input id="major-file" type="file" name="major_file" class="hidden" accept=".xlsx, .xls, .csv, .ods">' +
+                    '<button type="submit" class="btn btn-rose">Import</button>' +
+                    '</form>'
             }).catch(swal.noop)
 
         } else if (type == 'auto-close') {
@@ -1054,7 +1055,7 @@ demo = {
             views: {
                 month: { // name of view
                     titleFormat: 'MMMM YYYY'
-                    // other view-specific options here
+                        // other view-specific options here
                 },
                 week: {
                     titleFormat: " MMMM D YYYY"
@@ -1165,8 +1166,7 @@ demo = {
     showNotification: function(from, align, name) {
         type = ['', 'info', 'success', 'warning', 'danger', 'rose', 'primary'];
 
-        if (name == 'error1')
-        {
+        if (name == 'error1') {
             $.notify({
                 icon: "warning",
                 message: "Sai địa chỉ email hoặc mật khẩu, vui lòng kiểm tra lại!"
@@ -1181,8 +1181,7 @@ demo = {
             });
         }
 
-        if (name == 'error2')
-        {
+        if (name == 'error2') {
             $.notify({
                 icon: "warning",
                 message: "Tên chuyên ngành đã tồn tại, vui lòng kiểm tra lại!"
@@ -1197,8 +1196,7 @@ demo = {
             });
         }
 
-        if (name == 'error3')
-        {
+        if (name == 'error3') {
             $.notify({
                 icon: "warning",
                 message: "Chuyên ngành đã tồn tại, vui lòng kiểm tra lại!"
@@ -1213,8 +1211,7 @@ demo = {
             });
         }
 
-        if (name == 'error4')
-        {
+        if (name == 'error4') {
             $.notify({
                 icon: "warning",
                 message: "Vui lòng đăng nhập để tiếp tục!"

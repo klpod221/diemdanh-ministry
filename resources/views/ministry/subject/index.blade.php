@@ -11,6 +11,7 @@
                     <h4 class="card-title">Danh sách môn học</h4>
                     <div class="toolbar">
                         <div class="row">
+                            <a href="{{ route('subjectExport') }}" type="button" class="btn btn-blue">Xuất ra file</a>
                             <form action="{{ route('subjectList') }}" class="navbar-form" role="search" method="get" id="searchForm">
                                 <div class="col-xs-12">
                                     <div class="form-group form-search">
@@ -159,6 +160,19 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">add</i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Thêm môn học bằng file</h4>
+                    <form action="{{ route('subjectImport') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        @csrf
+                        <input id="subject-file" type="file" name="subject_file" accept=".xlsx, .xls, .csv, .ods" required>
+                        <button type="submit" class="btn btn-fill btn-rose">Submit</button>
                     </form>
                 </div>
             </div>
